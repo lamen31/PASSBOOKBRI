@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PASSBOOKBRI", "PASSBOOKBRI\PASSBOOKBRI.csproj", "{6A9FCDC2-58EC-4B18-9CFD-13BEB068DDDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A9FCDC2-58EC-4B18-9CFD-13BEB068DDDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9FCDC2-58EC-4B18-9CFD-13BEB068DDDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9FCDC2-58EC-4B18-9CFD-13BEB068DDDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9FCDC2-58EC-4B18-9CFD-13BEB068DDDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67E0AFB1-4ACE-48F4-8BBA-61B263E8D912}
+	EndGlobalSection
+EndGlobal
