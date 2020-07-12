@@ -1,0 +1,159 @@
+﻿@page "/"
+
+@using PASSBOOKBRI.Component
+@using PASSBOOKBRI.FooterComponent
+
+<div class="wrapper">
+    <div class="main-panel">
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top">
+            <div class="container d-flex">
+
+                <div class="logo mr-auto">
+                    <img src="assets/img/Logo-Bank-BRI.png">
+                </div>
+
+                <div class="header-social-links">
+                    <div class="clock-container">
+                        <div class="clock-col">
+                            <p class="clock-day clock-timer">
+                            </p>
+                        </div>
+                        <div class="clock-col">
+                            <p class="clock-hours clock-timer">
+                            </p>
+                        </div>
+                        <div class="clock-col">
+                            <p class="clock-minutes clock-timer">
+                            </p>
+                        </div>
+                        <div class="clock-col">
+                            <p class="clock-seconds clock-timer">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        @switch (message)
+        {
+            case "historitransaksi":
+                {
+
+                    break;
+                }
+            case "bukutabungan":
+                {
+                    <BukuTabunganComponent></BukuTabunganComponent>
+                    break;
+                }
+            case "bukutabungankonfirmasi":
+                {
+                    <BukuTabunganKonfirmasiComponent></BukuTabunganKonfirmasiComponent>
+                    break;
+                }
+            case "bukutabungangagal":
+                {
+                    <BukuTabunganGagalComponent></BukuTabunganGagalComponent>
+                    break;
+                }
+            case "bukutabunganberhasil":
+                {
+                    <BukuTabunganBerhasilComponent></BukuTabunganBerhasilComponent>
+                    break;
+                }
+            case "bukuhabis":
+                {
+                    <BukuTabunganHabisComponent></BukuTabunganHabisComponent>
+                    break;
+                }
+            case "pilihmenu":
+                {
+                    <PilihMenuComponent OnClick="ClickHandler"></PilihMenuComponent>
+                    break;
+                }
+            case "inputpin":
+                {
+                    <InputPinComponent OnClick="ClickHandler"></InputPinComponent>
+                    break;
+                }
+            default:
+                {
+                    <HomeComponent OnClick="ClickHandler"></HomeComponent>
+                    break;
+                }
+        }
+
+    </div>
+</div>
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="fixed-bottom">
+    <div class="container" style="display: flex;">
+
+
+        @switch (message)
+        {
+            case "historitransaksi":
+                {
+                    <BukuTabunganFooterComponent></BukuTabunganFooterComponent>
+
+                    break;
+                }
+            case "bukutabungan":
+                {
+                    <BukuTabunganFooterComponent></BukuTabunganFooterComponent>
+                    break;
+                }
+            case "bukutabungankonfirmasi":
+                {
+                    <KonfirmasiFooterComponent></KonfirmasiFooterComponent>
+                    break;
+                }
+            case "bukutabungangagal":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "bukutabunganberhasil":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "bukuhabis":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "pilihmenu":
+                {
+                    <PilihMenuFooterComponent></PilihMenuFooterComponent>
+                    break;
+                }
+            case "inputpin":
+                {
+                    <HomeFooterComponent></HomeFooterComponent>
+                    break;
+                }
+            default:
+                {
+                    <HomeFooterComponent></HomeFooterComponent>
+                    break;
+                }
+        }
+
+
+    </div>
+</footer><!-- End Footer -->
+
+@code{
+    private string message = "historitransaksi";
+
+                void ClickHandler(string strmessage)
+                {
+                    message = strmessage;
+                }
+            }

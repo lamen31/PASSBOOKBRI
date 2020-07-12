@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+                <div>
+                    <teks>Silakan Pilih Jenis Transaksi</teks>
+                    <h3 style="color: #00529C; font-size: 25px;">Pilih jenis transaksi yang Anda inginkan</h3>
+                </div>
+            </div>
+            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" style="padding: 3rem 0.1rem;">
+                <div class="card mb-3" style="margin: 0 auto; float: none; max-width: 90%; height: auto;" @onclick="bukutabungan">
+                    <div class="row no-gutters">
+                        <div class="col-xl-4">
+                            <img src="assets/img/tabungan-bri.png" class="card-img" alt="...">
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="card-body" style="text-align: left;">
+                                <h4 class="card-title">Buku Tabungan</h4>
+                                <h5 class="card-text">Cetak transaksi pada buku tabungan Anda</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3" style="margin: 0 auto; float: none; max-width: 90%; height: auto;">
+                    <div class="row no-gutters">
+                        <div class="col-xl-4">
+                            <img src="assets/img/histori.png" class="card-img" alt="...">
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="card-body" style="text-align: left;">
+                                <h4 class="card-title">Histori Transaksi</h4>
+                                <h5 class="card-text">Cetak transaksi berdasarkan periode transaksi</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    public void bukutabungan()
+    {
+        OnClick.InvokeAsync("bukutabungan");
+    }
+
+}

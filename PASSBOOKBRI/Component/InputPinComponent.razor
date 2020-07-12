@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+                <div>
+                    <teks>Silakan Masukkan PIN Anda</teks>
+                    <h3 style="color: #00529C; font-size: 25px;">"Tekan “ENTER” jika selesai memasukkan PIN"</h3>
+                </div>
+            </div>
+            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="pilihmenu">
+                <img src="assets/img/pin.png" class="img-fluid" alt="" style="margin-top: 5%;">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    public void pilihmenu()
+    {
+        OnClick.InvokeAsync("pilihmenu");
+    }
+
+}
