@@ -17,6 +17,7 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
     <link rel="stylesheet" href="../../assets/css/clock.css">
     <link rel="stylesheet" href="../assets/css/tracker.css">
+    <link rel="stylesheet" href="../assets/css/keyboard.css">
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
 
@@ -33,6 +34,23 @@
 
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: #144766
+        }
+
+        .input_box {
+            display: inline-block;
+            margin: 0 auto;
+            padding: 5px 10px;
+            font-size: 28px;
+            width: 25%;
+        }
+
+        .input_box_container {
+            text-align: center;
+        }
+    </style>
     <script type="text/JavaScript">
         //courtesy of BoogieJack.com
         function killCopy(e) {
@@ -68,6 +86,22 @@
 
     <!-- Template Main JS File -->
     <script src="../assets/js/main.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="lib/js/jkeyboard.js"></script>
+    <script>
+        $('#keyboard').jkeyboard({
+            layout: "numbers_only",
+            input: $('#input_field_1')
+        });
+
+
+        $(".form-control").focus(function () {
+            $('#keyboard').jkeyboard("setInput", this);
+        });
+
+
+    </script>
 
     <script src="_framework/blazor.server.js"></script>
 </body>

@@ -39,9 +39,49 @@
 
         @switch (message)
         {
+            case "historitransaksi":
+                {
+
+                    break;
+                }
+            case "bukutabungan":
+                {
+                    <BukuTabunganComponent></BukuTabunganComponent>
+                    break;
+                }
+            case "bukutabungankonfirmasi":
+                {
+                    <BukuTabunganKonfirmasiComponent></BukuTabunganKonfirmasiComponent>
+                    break;
+                }
+            case "bukutabungangagal":
+                {
+                    <BukuTabunganGagalComponent></BukuTabunganGagalComponent>
+                    break;
+                }
+            case "bukutabunganberhasil":
+                {
+                    <BukuTabunganBerhasilComponent></BukuTabunganBerhasilComponent>
+                    break;
+                }
+            case "bukuhabis":
+                {
+                    <BukuTabunganHabisComponent></BukuTabunganHabisComponent>
+                    break;
+                }
+            case "pilihmenu":
+                {
+                    <PilihMenuComponent OnClick="ClickHandler"></PilihMenuComponent>
+                    break;
+                }
+            case "inputpin":
+                {
+                    <InputPinComponent OnClick="ClickHandler"></InputPinComponent>
+                    break;
+                }
             default:
                 {
-                    <HomeComponent></HomeComponent>
+                    <HomeComponent OnClick="ClickHandler"></HomeComponent>
                     break;
                 }
         }
@@ -53,29 +93,64 @@
 <!-- ======= Footer ======= -->
 <footer id="footer" class="fixed-bottom">
     <div class="container" style="display: flex;">
-        <div class="col-xl-2 order-1 order-lg-1">
-            <!-- <button type="button" class="btn btn-primary" style="background-color: #4E4E4E;">Batal</button> -->
-        </div>
-        <div class="col-xl-8 order-2 order-lg-2">
 
-            @switch (message)
-            {
-                default:
-                    {
-                        <HomeFooterComponent></HomeFooterComponent>
-                        break;
-                    }
-            }
 
-        </div>
-        <div class="col-xl-2 order-3 order-lg-3">
-            <!-- <button type="button" class="btn btn-primary" style="float: right;">Lanjut</button> -->
-        </div>
+        @switch (message)
+        {
+            case "historitransaksi":
+                {
+                    <BukuTabunganFooterComponent></BukuTabunganFooterComponent>
+
+                    break;
+                }
+            case "bukutabungan":
+                {
+                    <BukuTabunganFooterComponent></BukuTabunganFooterComponent>
+                    break;
+                }
+            case "bukutabungankonfirmasi":
+                {
+                    <KonfirmasiFooterComponent></KonfirmasiFooterComponent>
+                    break;
+                }
+            case "bukutabungangagal":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "bukutabunganberhasil":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "bukuhabis":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "pilihmenu":
+                {
+                    <PilihMenuFooterComponent></PilihMenuFooterComponent>
+                    break;
+                }
+            case "inputpin":
+                {
+                    <HomeFooterComponent></HomeFooterComponent>
+                    break;
+                }
+            default:
+                {
+                    <HomeFooterComponent></HomeFooterComponent>
+                    break;
+                }
+        }
+
+
     </div>
 </footer><!-- End Footer -->
 
 @code{
-    private string message = string.Empty;
+    private string message = "historitransaksi";
 
                 void ClickHandler(string strmessage)
                 {

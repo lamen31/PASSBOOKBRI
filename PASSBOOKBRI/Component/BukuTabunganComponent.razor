@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+                <div>
+                    <teks>Hello, BAMBANG</teks>
+                    <h3 style="color: #00529C;">Masukkan data buku tabungan Anda</h3>
+                </div>
+                <form>
+                    <div class="form-row" style="padding: 2rem 0rem;">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4" style="font-weight: 600; font-size: 18px;">Nomor Rekening Anda</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4" style="font-weight: 600; font-size: 18px;">Nomor Baris</label>
+                            <input type="text" class="form-control" id="input_field_1" placeholder="No. baris yang akan dicetak" maxlength="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4" style="font-weight: 600; font-size: 18px;">Nomor Halaman</label>
+                            <input type="text" class="form-control" id="input_field_2" placeholder="No. halaman yang akan dicetak" maxlength="1">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4" style="font-weight: 600; font-size: 18px;">Saldo Terakhir</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend2">Rp</span>
+                                </div>
+                                <input type="text" class="form-control" id="input_field_3" placeholder="saldo terakhir pada buku">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" style=" padding: 2rem;">
+                <div id="keyboard"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+
+@code {
+
+}

@@ -2561,7 +2561,8 @@ textarea.form-control {
 }
 
 .btn.disabled, .btn:disabled {
-  opacity: 0.65;
+  opacity: 0.35;
+  /* opacity: 0.65; */
 }
 
 .btn:not(:disabled):not(.disabled) {
@@ -2607,6 +2608,45 @@ fieldset:disabled a.btn {
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+/* ///////////////////////// */
+
+.btn-histori {
+  color: #fff;
+  background-color: #FF6533;
+  border-color: #FF6533;
+}
+
+.btn-histori:hover {
+  color: #fff;
+  background-color: #ad401b;
+  border-color: #0062cc;
+}
+
+.btn-histori:focus, .btn-histori.focus {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.btn-histori.disabled, .btn-histori:disabled {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-histori:not(:disabled):not(.disabled):active, .btn-histori:not(:disabled):not(.disabled).active,
+.show > .btn-histori.dropdown-toggle {
+  color: #fff;
+  background-color: #0062cc;
+  border-color: #005cbf;
+}
+
+.btn-histori:not(:disabled):not(.disabled):active:focus, .btn-histori:not(:disabled):not(.disabled).active:focus,
+.show > .btn-histori.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
@@ -6131,7 +6171,7 @@ a.close.disabled {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 700px;
     margin: 1.75rem auto;
   }
   .modal-dialog-scrollable {

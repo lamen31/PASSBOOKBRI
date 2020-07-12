@@ -7,13 +7,12 @@
         <div class="row">
             <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
                 <div>
-                    <h3 style="color: #00529C;">Selamat Datang di Bank BRI</h3>
-                    <h2>KCP Cikupa</h2>
-                    <teks>Silakan Masukkan Kartu Anda</teks>
+                    <teks>Silakan Masukkan PIN Anda</teks>
+                    <h3 style="color: #00529C; font-size: 25px;">"Tekan “ENTER” jika selesai memasukkan PIN"</h3>
                 </div>
             </div>
-            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="inputpin">
-                <img src="assets/img/card-bri-1.png" class="img-fluid" alt="" style="margin-top: 5%;">
+            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="pilihmenu">
+                <img src="assets/img/pin.png" class="img-fluid" alt="" style="margin-top: 5%;">
             </div>
         </div>
     </div>
@@ -24,9 +23,9 @@
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
 
-    public void inputpin()
+    public void pilihmenu()
     {
-        OnClick.InvokeAsync("inputpin");
+        OnClick.InvokeAsync("pilihmenu");
     }
 
 }
