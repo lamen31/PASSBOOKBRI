@@ -16,12 +16,12 @@
                 <div class="form-input-data">
                     <div id="btn-periode" class="col-md-12" style="text-align: center;">
                         <div class="form-group">
-                            <button type="button" class="btn2 btn-histori" onclick="btn1()">Periode Bulan Berjalan</button>
-                            <button type="button" class="btn2 btn-histori" style="margin-left: 1rem;">Periode 1 Bulan Terakhir</button>
+                            <button type="button" class="btn2 btn-histori" @onclick="historitransaksibulanberjalan">Periode Bulan Berjalan</button>
+                            <button type="button" class="btn2 btn-histori" style="margin-left: 1rem;" @onclick="historitransaksibulanterakhir">Periode 1 Bulan Terakhir</button>
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn2 btn-histori">Periode Bulan Lalu</button>
-                            <button type="button" class="btn2 btn-histori" style="margin-left: 1rem;">10 Transaksi Terakhir</button>
+                            <button type="button" class="btn2 btn-histori" @onclick="historitransaksibulanlalu">Periode Bulan Lalu</button>
+                            <button type="button" class="btn2 btn-histori" style="margin-left: 1rem;" @onclick="historitransaksisepuluhterakhir">10 Transaksi Terakhir</button>
                         </div>
                     </div>
                 </div>
@@ -32,5 +32,27 @@
 <!-- End Hero -->
 
 @code {
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    public void historitransaksibulanlalu()
+    {
+        OnClick.InvokeAsync("historitransaksibulanlalu");
+    }
+
+    public void historitransaksibulanberjalan()
+    {
+        OnClick.InvokeAsync("historitransaksibulanberjalan");
+    }
+
+    public void historitransaksibulanterakhir()
+    {
+        OnClick.InvokeAsync("historitransaksibulanterakhir");
+    }
+
+    public void historitransaksisepuluhterakhir()
+    {
+        OnClick.InvokeAsync("historitransaksisepuluhterakhir");
+    }
 
 }

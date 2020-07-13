@@ -41,7 +41,37 @@
         {
             case "historitransaksi":
                 {
-
+                    <HistoriTransaksiComponent OnClick="ClickHandler"></HistoriTransaksiComponent>
+                    break;
+                }
+            case "historitransaksibulanlalu":
+                {
+                    <HistoriTransaksiBulanLaluComponent></HistoriTransaksiBulanLaluComponent>
+                    break;
+                }
+            case "historitransaksibulanberjalan":
+                {
+                    <HistoriTransaksiBulanBerjalanComponent></HistoriTransaksiBulanBerjalanComponent>
+                    break;
+                }
+            case "historitransaksibulanterakhir":
+                {
+                    <HistoriTransaksiBulanTerakhirComponent></HistoriTransaksiBulanTerakhirComponent>
+                    break;
+                }
+            case "historitransaksisepuluhterakhir":
+                {
+                    <HistoriTransaksiSepuluhTerakhirComponent></HistoriTransaksiSepuluhTerakhirComponent>
+                    break;
+                }
+            case "historitransaksiberhasil":
+                {
+                    <HistoriTransaksiBerhasilComponent></HistoriTransaksiBerhasilComponent>
+                    break;
+                }
+            case "historitransaksigagal":
+                {
+                    <HistoriTransaksiGagalComponent></HistoriTransaksiGagalComponent>
                     break;
                 }
             case "bukutabungan":
@@ -99,18 +129,47 @@
         {
             case "historitransaksi":
                 {
-                    <BukuTabunganFooterComponent></BukuTabunganFooterComponent>
-
+                    <HistoriTransaksiFooterComponent OnClick="ClickHandler"></HistoriTransaksiFooterComponent>
+                    break;
+                }
+            case "historitransaksibulanlalu":
+                {
+                    <HistoriTransaksiKonfirmasiFooterComponent OnClick="ClickHandler"></HistoriTransaksiKonfirmasiFooterComponent>
+                    break;
+                }
+            case "historitransaksibulanberjalan":
+                {
+                    <HistoriTransaksiKonfirmasiFooterComponent OnClick="ClickHandler"></HistoriTransaksiKonfirmasiFooterComponent>
+                    break;
+                }
+            case "historitransaksibulanterakhir":
+                {
+                    <HistoriTransaksiKonfirmasiFooterComponent OnClick="ClickHandler"></HistoriTransaksiKonfirmasiFooterComponent>
+                    break;
+                }
+            case "historitransaksisepuluhterakhir":
+                {
+                    <HistoriTransaksiKonfirmasiFooterComponent OnClick="ClickHandler"></HistoriTransaksiKonfirmasiFooterComponent>
+                    break;
+                }
+            case "historitransaksiberhasil":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    break;
+                }
+            case "historitransaksigagal":
+                {
+                    <SelesaiFooterComponent></SelesaiFooterComponent>
                     break;
                 }
             case "bukutabungan":
                 {
-                    <BukuTabunganFooterComponent></BukuTabunganFooterComponent>
+                    <BukuTabunganFooterComponent OnClick="ClickHandler"></BukuTabunganFooterComponent>
                     break;
                 }
             case "bukutabungankonfirmasi":
                 {
-                    <KonfirmasiFooterComponent></KonfirmasiFooterComponent>
+                    <BukuTabunganKonfirmasiFooterComponent></BukuTabunganKonfirmasiFooterComponent>
                     break;
                 }
             case "bukutabungangagal":
@@ -150,10 +209,12 @@
 </footer><!-- End Footer -->
 
 @code{
-    private string message = "historitransaksi";
+    private string message = string.Empty;
 
-                void ClickHandler(string strmessage)
-                {
-                    message = strmessage;
-                }
+    void ClickHandler(string strmessage)
+    {
+        message = strmessage;
+    }
+
+
             }

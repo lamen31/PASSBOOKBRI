@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-3" style="margin: 0 auto; float: none; max-width: 90%; height: auto;">
+                <div class="card mb-3" style="margin: 0 auto; float: none; max-width: 90%; height: auto;" @onclick="historitransaksi">
                     <div class="row no-gutters">
                         <div class="col-xl-4">
                             <img src="assets/img/histori.png" class="card-img" alt="...">
@@ -51,6 +51,11 @@
     public void bukutabungan()
     {
         OnClick.InvokeAsync("bukutabungan");
+    }
+
+    public void historitransaksi()
+    {
+        OnClick.InvokeAsync("historitransaksi");
     }
 
 }
