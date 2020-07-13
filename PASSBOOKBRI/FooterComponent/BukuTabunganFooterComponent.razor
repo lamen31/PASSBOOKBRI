@@ -1,4 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx
+@inject TimerSet time
 
     <div class="col-xl-2 order-1 order-lg-1">
         <button type="button" class="btn btn-primary" style="background-color: #4E4E4E;" @onclick="pilihmenu">Kembali</button>
@@ -28,12 +32,151 @@
         </ol>
         </div>
     <div class="col-xl-2 order-3 order-lg-3">
-        <button type="button" class="btn btn-primary" style="float: right;">Lanjut</button>
+        <button type="button" class="btn btn-primary" style="float: right;" @onclick="lanjut">Lanjut</button>
     </div>
 
         @code {
             [Parameter]
             public EventCallback<string> OnClick { get; set; }
+
+            private string[] buku = { "rekening", "bisnis" };
+            private bool norekening = true;
+            private string jenisbuku = string.Empty;
+            private string barisbuku = string.Empty;
+            private string halamanbuku = string.Empty;
+            private string saldorekening = string.Empty;
+            private string visibilityicon = "visibility_off";
+            private string tanggal = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dd/MM/yy");
+            private string[] tipe;
+            private string[] sandi;
+            private string[] nominal;
+            private string[] pengesahan;
+            private int timer = 60000;
+            private bool flag = false;
+
+            private async Task checkbuku()
+            {
+                if (trx._norek)
+                {
+                    jenisbuku = buku[0];
+                }
+                else
+                {
+                    jenisbuku = buku[1];
+                }
+            }
+            protected override async Task OnInitializedAsync()
+            {
+                flag = true;
+                time.SetTimer(timer);
+                time.onelapsed += TimeHandle;
+                Console.WriteLine("TIMER START BUKUTABUNGAN");
+            }
+
+            private void lanjut()
+            {
+                //trx.clear();
+                trx.clearArray();
+                trx._norek = true;
+                checkbuku();
+                if (jenisbuku == "rekening")
+                {
+                    //int baris = int.Parse(barisbuku);
+                    if (saldorekening != string.Empty && int.Parse(barisbuku) <= 41 && int.Parse(halamanbuku) < 9)
+                    {
+                        //string path = "C:\\inputpassbook\\input passbook bni.csv";
+                        string path = trx._pathpassbook;
+                        string[] lines = System.IO.File.ReadAllLines(path);
+                        tipe = new string[lines.Length];
+                        sandi = new string[lines.Length];
+                        nominal = new string[lines.Length];
+                        pengesahan = new string[lines.Length];
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            string[] column = lines[i].Split(";");
+                            for (int j = 0; j < column.Length; j++)
+                            {
+                                if (j == 0)
+                                    tipe[i] = column[j];
+
+                                else if (j == 1)
+                                    sandi[i] = column[j];
+
+                                else if (j == 2)
+                                    nominal[i] = column[j];
+
+                                else if (j == 3)
+                                    pengesahan[i] = column[j];
+                            }
+
+                        }
+                        //Random rnd = new Random();
+                        //pengesahan = rnd.Next(100);
+                        trx.setTransaksiPassbook(barisbuku, halamanbuku, tanggal, tipe, sandi, nominal, saldorekening, pengesahan); ;
+                        OnClick.InvokeAsync("bukutabungankonfirmasi");
+                        flag = false;
+                        time.TimeDispose();
+                    }
+                }
+                else if (jenisbuku == "bisnis")
+                {
+                    lanjutBisnis();
+                }
+            }
+
+            private void TimeHandle()
+            {
+                if (flag == true)
+                {
+                    Console.WriteLine("TIME'S UP DATA");
+                    time.TimeDispose();
+                    OnClick.InvokeAsync("/waktuhabis");
+                }
+            }
+
+            private void lanjutBisnis()
+            {
+                trx.clear();
+                trx.clearArray();
+                if (saldorekening != string.Empty)
+                {
+                    string path = "C:\\input passbook bni.csv";
+                    string[] lines = System.IO.File.ReadAllLines(path);
+                    tipe = new string[lines.Length * 2];
+                    sandi = new string[lines.Length * 2];
+                    nominal = new string[lines.Length * 2];
+                    pengesahan = new string[lines.Length * 2];
+                    int lineData = 0;
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        string[] column = lines[i].Split(";");
+                        for (int j = 0; j < column.Length; j++)
+                        {
+                            if (j == 0)
+                                tipe[lineData] = column[j];
+
+                            else if (j == 1)
+                                sandi[lineData] = column[j];
+
+                            else if (j == 2)
+                                nominal[lineData] = column[j];
+
+                            else if (j == 3)
+                                pengesahan[lineData] = column[j];
+                        }
+                        tipe[lineData + 1] = "\t";
+                        sandi[lineData + 1] = "\t";
+                        nominal[lineData + 1] = "\t";
+                        pengesahan[lineData + 1] = "\t";
+                        lineData += 2;
+                    }
+                    //Random rnd = new Random();
+                    //pengesahan = rnd.Next(100);
+                    trx.setTransaksiPassbook(barisbuku, halamanbuku, tanggal, tipe, sandi, nominal, saldorekening, pengesahan); ;
+                    OnClick.InvokeAsync("cetak");
+                }
+
+            }
 
             public void pilihmenu()
             {

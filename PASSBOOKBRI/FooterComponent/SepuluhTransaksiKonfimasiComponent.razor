@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx
+@inject Printer print
+@inject TimerSet time
+
+<div class="col-xl-2 order-1 order-lg-1">
+    <button type="button" class="btn btn-primary" style="background-color: #4E4E4E;" @onclick="historitransaksi">Batal</button>
+</div>
+<div class="col-xl-8 order-2 order-lg-2">
+    <ol class="track-progress" style="margin-left: 0%; margin-bottom: 2%;">
+        <li class="done">
+            <em>1</em>
+            <span>Login</span>
+        </li>
+        <li class="done">
+            <em>2</em>
+            <span>Menu</span>
+        </li>
+        <li class="done">
+            <em>3</em>
+            <span>Data</span>
+        </li>
+        <li class="done">
+            <em>4</em>
+            <span>Konfirmasi</span>
+        </li>
+        <li class="todo">
+            <em>5</em>
+            <span>Selesai</span>
+        </li>
+    </ol>
+</div>
+<div class="col-xl-2 order-3 order-lg-3">
+    <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#exampleModalCenter" @onclick="CheckVisible">Cetak</button>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    private bool isVisible = false;
+    private bool cetak = true;
+    private string[] tanggal;
+    private string[] nominal;
+    private string[] kode;
+    private string saldo = "1000000";
+    private int timer = 60000;
+    private bool flag = false;
+
+    public void historitransaksi()
+    {
+        OnClick.InvokeAsync("historitransaksi");
+    }
+
+    private void TimeHandle()
+    {
+        if (flag == true)
+        {
+            Console.WriteLine("TIME'S UP SEPULUHTERAKHIR");
+            time.TimeDispose();
+            OnClick.InvokeAsync("waktuhabis");
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        flag = true;
+        time.SetTimer(timer);
+        time.onelapsed += TimeHandle;
+        Console.WriteLine("TIMER START SEPULUHTERAKHIR");
+
+    }
+
+    private async Task CheckVisible()
+    {
+        isVisible = !isVisible;
+        trx.clearArray();
+        //string path = "C:\\inputpassbook\\input thermal.csv";
+        string path = trx._pathThermal;
+        string[] lines = System.IO.File.ReadAllLines(path);
+        tanggal = new string[lines.Length];
+        kode = new string[lines.Length];
+        nominal = new string[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] column = lines[i].Split(";");
+            for (int j = 0; j < column.Length; j++)
+            {
+                if (j == 0)
+                {
+                    tanggal[i] = column[j];
+                }
+                else if (j == 1)
+                {
+                    kode[i] = column[j];
+                }
+                else if (j == 2)
+                {
+                    nominal[i] = column[j];
+                }
+            }
+        }
+        trx.setPrintThermal(tanggal, kode, nominal, saldo);
+        if (cetak)
+        {
+            await print.ThermalPrint(trx);
+            OnClick.InvokeAsync("transaksiberhasil");
+            flag = false;
+            time.TimeDispose();
+        }
+        else
+        {
+            OnClick.InvokeAsync("transaksigagal");
+        }
+    }
+
+}

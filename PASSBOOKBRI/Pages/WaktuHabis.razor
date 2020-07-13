@@ -1,0 +1,91 @@
+﻿@page "/waktuhabis"
+
+@inject NavigationManager navman
+
+<div class="wrapper">
+    <div class="main-panel">
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top">
+            <div class="container d-flex">
+
+                <div class="logo mr-auto">
+                    <img src="assets/img/Logo-Bank-BRI.png">
+                </div>
+
+                <div class="header-social-links">
+                    <div class="clock-container">
+                        <div class="clock-col">
+                            <p class="clock-day clock-timer">
+                            </p>
+                        </div>
+                        <div class="clock-col">
+                            <p class="clock-hours clock-timer">
+                            </p>
+                        </div>
+                        <div class="clock-col">
+                            <p class="clock-minutes clock-timer">
+                            </p>
+                        </div>
+                        <div class="clock-col">
+                            <p class="clock-seconds clock-timer">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section id="hero">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+                        <div>
+                            <teks style="color: black; font-size: 35px;">Maaf Waktu Anda <b style="color: rgb(190, 20, 20);">Sudah Habis</b></teks>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Hero -->
+    </div>
+</div>
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="fixed-bottom">
+    <div class="container" style="display: flex;">
+        <div class="col-xl-8 order-2 order-lg-2">
+            <ol class="track-progress" style="margin-left: 0%; margin-bottom: 2%;">
+                <li class="done">
+                    <em>1</em>
+                    <span>Login</span>
+                </li>
+                <li class="done">
+                    <em>2</em>
+                    <span>Menu</span>
+                </li>
+                <li class="done">
+                    <em>3</em>
+                    <span>Data</span>
+                </li>
+                <li class="done">
+                    <em>4</em>
+                    <span>Konfirmasi</span>
+                </li>
+                <li class="done">
+                    <em>5</em>
+                    <span>Selesai</span>
+                </li>
+            </ol>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        navman.NavigateTo("/");
+    }
+
+}

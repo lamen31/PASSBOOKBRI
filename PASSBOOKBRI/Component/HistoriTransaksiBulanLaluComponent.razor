@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
 
+@inject Transaksi trx
+@inject TimerSet time
 <!-- ======= Hero Section ======= -->
 <section id="hero">
 
@@ -7,11 +10,11 @@
         <div class="row">
             <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
                 <div>
-                    <teks>Hello, BAMBANG PAMUNGKAS</teks>
-                    <h3 style="color: #00529C; margin-right: -2rem;">Anda akan Mencetak Histori Transaksi pada</h3><br>
+                    <teks>Hello, @trx._nasabah</teks>
+                    <h3 style="color: #00529C; margin-right: -2rem;">Anda Akan Mencetak @trx._jumlahtransaksi Transaksi Pada</h3><br>
                     <p>
-                        <h3 style="color: #00529C;"><b>Periode Bulan Lalu</b></h3>
-                        <h3 style="color: #F15A23;"><b>01/03/2020 - 31/03/2020</b></h3>
+                        <h3 style="color: #00529C;"><b>@periodeprint</b></h3>
+                        <h3 style="color: #F15A23;"><b>@startdate s/d @enddate</b></h3>
                     </p>
                 </div>
             </div>
@@ -23,6 +26,70 @@
 </section>
 <!-- End Hero -->
 
+@if (trx._isVisible)
+{
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status" style="padding:0.5rem; margin-top: 5%;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; color: white;">
+                        <h3 class="teks" style="margin-top: 5%;">Mohon Tunggu,</h3>
+                        <h3>Histori Transaksi sedang dicetak...</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (trx._isBaris)
+{
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align: center; color: white;">
+                        <h3>Anda memiliki sisa @trx._sisatransaksi histori transaksi lagi.</h3>
+                        <h3 class="teks" style="margin-top: 5%;">Apakah anda ingin mencetak histori transaksi berikutnya?</h3>
+                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#exampleModalCenter" @onclick="testVisible">Ya</button>
+                        <button type="button" class="btn btn-primary" style="background-color: #4E4E4E;" @onclick="home">Tidak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @code {
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    private string startdate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1).ToString("yyyy-MM-dd");
+    private string enddate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1).ToString("yyyyy-MM-dd");
+    private string periodeprint = "Periode Bulan Lalu";
+    private bool isVisible;
+    private bool isBaris;
+
+    protected override async Task OnInitializedAsync()
+    {
+        trx.setTransaksiHistori(periodeprint, startdate, enddate);
+    }
+
+    private void testVisible()
+    {
+        isVisible = true;
+        isBaris = false;
+        trx.setModal(isBaris, isVisible);
+    }
+
+    private void home()
+    {
+        OnClick.InvokeAsync("default");
+    }
 
 }

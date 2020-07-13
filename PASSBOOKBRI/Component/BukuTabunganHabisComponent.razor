@@ -21,5 +21,13 @@
 <!-- End Hero -->
 
 @code {
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(5000);
+        OnClick.InvokeAsync("default");
+    }
 
 }

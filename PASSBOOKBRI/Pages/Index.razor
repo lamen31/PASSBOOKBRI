@@ -2,6 +2,9 @@
 
 @using PASSBOOKBRI.Component
 @using PASSBOOKBRI.FooterComponent
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx  
 
 <div class="wrapper">
     <div class="main-panel">
@@ -66,12 +69,12 @@
                 }
             case "historitransaksiberhasil":
                 {
-                    <HistoriTransaksiBerhasilComponent></HistoriTransaksiBerhasilComponent>
+                    <HistoriTransaksiBerhasilComponent OnClick="ClickHandler"></HistoriTransaksiBerhasilComponent>
                     break;
                 }
             case "historitransaksigagal":
                 {
-                    <HistoriTransaksiGagalComponent></HistoriTransaksiGagalComponent>
+                    <HistoriTransaksiGagalComponent OnClick="ClickHandler"></HistoriTransaksiGagalComponent>
                     break;
                 }
             case "bukutabungan":
@@ -86,17 +89,17 @@
                 }
             case "bukutabungangagal":
                 {
-                    <BukuTabunganGagalComponent></BukuTabunganGagalComponent>
+                    <BukuTabunganGagalComponent OnClick="ClickHandler"></BukuTabunganGagalComponent>
                     break;
                 }
             case "bukutabunganberhasil":
                 {
-                    <BukuTabunganBerhasilComponent></BukuTabunganBerhasilComponent>
+                    <BukuTabunganBerhasilComponent OnClick="ClickHandler"></BukuTabunganBerhasilComponent>
                     break;
                 }
             case "bukuhabis":
                 {
-                    <BukuTabunganHabisComponent></BukuTabunganHabisComponent>
+                    <BukuTabunganHabisComponent OnClick="ClickHandler"></BukuTabunganHabisComponent>
                     break;
                 }
             case "pilihmenu":
@@ -149,12 +152,12 @@
                 }
             case "historitransaksisepuluhterakhir":
                 {
-                    <HistoriTransaksiKonfirmasiFooterComponent OnClick="ClickHandler"></HistoriTransaksiKonfirmasiFooterComponent>
+                    <SepuluhTransaksiKonfimasiComponent OnClick="ClickHandler"></SepuluhTransaksiKonfimasiComponent>
                     break;
                 }
             case "historitransaksiberhasil":
                 {
-                    <SelesaiFooterComponent></SelesaiFooterComponent>
+                    <SelesaiFooterComponent ></SelesaiFooterComponent>
                     break;
                 }
             case "historitransaksigagal":
@@ -216,5 +219,11 @@
         message = strmessage;
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        trx.clear();
+        trx.clearArray();
+    }
 
-            }
+
+}

@@ -1,4 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx
+@inject TimerSet time
+@inject NavigationManager navman
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
@@ -48,14 +53,69 @@
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
 
-    public void bukutabungan()
+    private string[] uraian;
+    private string[] tipe;
+    private string[] nominal;
+    private int timer = 60000;
+    private bool flag = false;
+
+    private void bukutabungan()
     {
         OnClick.InvokeAsync("bukutabungan");
+        flag = false;
+        time.TimeDispose();
     }
 
-    public void historitransaksi()
+    private void historitransaksi()
     {
+        string path = "C:\\inputpassbook\\input histori a4.csv";
+        string[] lines = System.IO.File.ReadAllLines(path);
+        uraian = new string[lines.Length];
+        tipe = new string[lines.Length];
+        nominal = new string[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] column = lines[i].Split(";");
+            for (int j = 0; j < column.Length; j++)
+            {
+                if (j == 0)
+                {
+                    uraian[i] = column[j];
+                }
+                else if (j == 1)
+                {
+                    tipe[i] = column[j];
+                }
+                else if (j == 2)
+                {
+                    nominal[i] = column[j];
+                }
+            }
+        }
+        string jumlahtransaksi = uraian.Length.ToString();
         OnClick.InvokeAsync("historitransaksi");
+        trx.setTransaksiHistori(jumlahtransaksi, uraian, tipe, nominal);
+        flag = false;
+        time.TimeDispose();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        flag = true;
+        time.SetTimer(timer);
+        time.onelapsed += TimeHandle;
+        Console.WriteLine("TIMER START PILIHMENU");
+    }
+
+    private void TimeHandle()
+    {
+        if (flag == true)
+        {
+            Console.WriteLine("TIME'S UP PILIHMENU");
+            //break;
+            time.TimeDispose();
+            navman.NavigateTo("/waktuhabis");
+        }
     }
 
 }

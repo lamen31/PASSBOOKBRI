@@ -29,6 +29,10 @@ namespace PASSBOOKBRI
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<Transaksi>();
+            services.AddTransient<TimerSet>();
+            services.AddSingleton<Printer>();
+            services.AddSingleton<PrintServer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

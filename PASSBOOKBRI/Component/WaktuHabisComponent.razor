@@ -1,32 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Components
 
-<!-- ======= Hero Section ======= -->
 <section id="hero">
 
     <div class="container">
         <div class="row">
             <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
                 <div>
-                    <teks style="color: black;">Histori Transaksi <b style="color: rgb(122, 190, 20);">Berhasil</b> dicetak</teks>
-                    <h3 style="color: #00529C; margin-top: 5%; font-size: 25px;">"Silakan ambil kertas pada bagian bawah mesin"</h3>
+                    <teks style="color: black; font-size: 35px;">Maaf Waktu Anda <b style="color: rgb(190, 20, 20);">Sudah Habis</b></teks>
                 </div>
-            </div>
-            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left">
-                <img src="assets/img/berhasil.png" class="img-fluid" alt="" style="margin-top: 5%;">
             </div>
         </div>
     </div>
 </section>
 <!-- End Hero -->
 
-@code {
+@code {      
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(5000);
+        await Task.Delay(3000);
         OnClick.InvokeAsync("default");
     }
-
 }

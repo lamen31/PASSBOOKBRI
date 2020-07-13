@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
@@ -8,11 +11,17 @@
             <div class="col-xl-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
                 <div>
                     <h3 style="color: #00529C;">Selamat Datang di Bank BRI</h3>
-                    <h2>KCP Cikupa</h2>
+                    <h2>@cabangbri</h2>
                     <teks>Silakan Masukkan Kartu Anda</teks>
                 </div>
             </div>
-            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="inputpin">
+            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="cardinput">
+                @if (validasi == false)
+                {
+                    <p>
+                        <h5 style="color: #00529C;"><b>Kartu Yang Anda Masukan Salah</b></h5>
+                    </p>
+                }
                 <img src="assets/img/card-bri-1.png" class="img-fluid" alt="" style="margin-top: 5%;">
             </div>
         </div>
@@ -24,9 +33,30 @@
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
 
-    public void inputpin()
+    private bool kartuvalid = true;
+    private bool validasi = true;
+    private string cabangbri = "KCP Cikupa";
+
+    private void cardinput()
     {
-        OnClick.InvokeAsync("inputpin");
+        cardcheck(kartuvalid);
+    }
+
+    private void cardcheck(bool valid)
+    {
+        if(valid == true)
+        {
+            Console.WriteLine("KARTU VALID");
+            validasi = true;
+            OnClick.InvokeAsync("inputpin");
+            trx.setcabang(cabangbri);
+        }
+        else
+        {
+            Console.WriteLine("KARTU TIDAK VALID");
+            validasi = false;
+        }
+
     }
 
 }

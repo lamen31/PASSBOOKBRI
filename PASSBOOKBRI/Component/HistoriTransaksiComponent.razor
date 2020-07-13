@@ -1,4 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx
+@inject TimerSet time 
+@inject NavigationManager navman
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
@@ -7,7 +12,7 @@
         <div class="row">
             <div class="col-xl-12 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
                 <div>
-                    <teks>Hello, BAMBANG PAMUNGKAS</teks>
+                    <teks>Hello, @trx._nasabah</teks>
                     <h3 style="color: #00529C;">Pilih Periode Transaksi yang Anda Inginkan</h3>
                 </div>
             </div>
@@ -35,24 +40,53 @@
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
 
+    private int timer = 60000;
+    private bool flag = false;
+
     public void historitransaksibulanlalu()
     {
         OnClick.InvokeAsync("historitransaksibulanlalu");
+        flag = false;
+        time.TimeDispose();
     }
 
     public void historitransaksibulanberjalan()
     {
         OnClick.InvokeAsync("historitransaksibulanberjalan");
+        flag = false;
+        time.TimeDispose();
     }
 
     public void historitransaksibulanterakhir()
     {
         OnClick.InvokeAsync("historitransaksibulanterakhir");
+        flag = false;
+        time.TimeDispose();
     }
 
     public void historitransaksisepuluhterakhir()
     {
         OnClick.InvokeAsync("historitransaksisepuluhterakhir");
+        flag = false;
+        time.TimeDispose();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        flag = true;
+        time.SetTimer(timer);
+        time.onelapsed += TimeHandle;
+        Console.WriteLine("TIMER START HISTORITRANSAKSI");
+    }
+
+    private void TimeHandle()
+    {
+        if (flag == true)
+        {
+            Console.WriteLine("TIME'S UP HISTORITRANSAKSI");
+            time.TimeDispose();
+            navman.NavigateTo("/waktuhabis");
+        }
     }
 
 }

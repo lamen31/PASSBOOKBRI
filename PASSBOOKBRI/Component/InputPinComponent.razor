@@ -1,4 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components
+@using PASSBOOKBRI.Data
+
+@inject Transaksi trx
+@inject TimerSet time
+@inject NavigationManager navman
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
@@ -11,7 +16,14 @@
                     <h3 style="color: #00529C; font-size: 25px;">"Tekan “ENTER” jika selesai memasukkan PIN"</h3>
                 </div>
             </div>
-            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="pilihmenu">
+            <div class="col-xl-6 order-1 order-lg-2 hero-img" data-aos="fade-left" @onclick="pininput">
+                @if (validasi == false)
+                {
+                <p>
+                    <h5 style="color: #00529C;"><b>Pin Yang Anda Masukan Salah</b></h5>
+                    <h5 style="color: #F15A23;"><b>Kesempatan Mencoba Tinggal @limittry Lagi</b></h5>
+                </p>
+                }
                 <img src="assets/img/pin.png" class="img-fluid" alt="" style="margin-top: 5%;">
             </div>
         </div>
@@ -23,9 +35,61 @@
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
 
-    public void pilihmenu()
+    private bool pinvalid = true;
+    private bool validasi = true;
+    private string namaNasabah = "Bambang Pamungkas";
+    private string rekeningNasabah = "1234567890";
+    private string alamatNasabah = "Zimbabwe";
+    private int limittry = 3;
+    private int timer = 60000;
+    private bool flag = false;
+
+    private void pininput()
     {
-        OnClick.InvokeAsync("pilihmenu");
+        pincheck(pinvalid);
+    }
+
+    public void pincheck(bool valid)
+    {
+        if (valid == true)
+        {
+            Console.WriteLine("PIN VALID");
+            validasi = true;
+            OnClick.InvokeAsync("pilihmenu");
+            trx.setNasabah(namaNasabah, rekeningNasabah, alamatNasabah);
+            flag = false;
+            time.TimeDispose();
+        }
+        else
+        {
+            Console.WriteLine("PIN TIDAK VALID");
+            validasi = false;
+            limittry -= 1;
+            if(limittry == 0)
+            {
+                OnClick.InvokeAsync("default");
+            }
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        flag = true;
+        time.SetTimer(timer);
+        time.onelapsed += TimeHandle;
+        Console.WriteLine("TIMER START INPUTPIN");
+    }
+
+    private void TimeHandle()
+    {
+        if (flag == true)
+        {
+            Console.WriteLine("TIME'S UP INPUTPIN");
+            //break;
+            time.TimeDispose();
+            navman.NavigateTo("/waktuhabis");
+        }
     }
 
 }
