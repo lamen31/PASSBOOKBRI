@@ -26,7 +26,7 @@
 </section>
 <!-- End Hero -->
 
-@if (trx._isVisible)
+@if (isVisible)
 {
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -47,7 +47,7 @@
     </div>
 }
 
-@if (trx._isBaris)
+@if (isBaris)
 {
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -56,7 +56,7 @@
                     <div style="text-align: center; color: white;">
                         <h3>Anda memiliki sisa @trx._sisatransaksi histori transaksi lagi.</h3>
                         <h3 class="teks" style="margin-top: 5%;">Apakah anda ingin mencetak histori transaksi berikutnya?</h3>
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#exampleModalCenter" @onclick="testVisible">Ya</button>
+                        <button type="button" class="btn btn-primary"  @onclick="testVisible">Ya</button>
                         <button type="button" class="btn btn-primary" style="background-color: #4E4E4E;" @onclick="home">Tidak</button>
                     </div>
                 </div>
@@ -72,12 +72,36 @@
     private string startdate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-1).ToString("yyyy-MM-dd");
     private string enddate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1).ToString("yyyyy-MM-dd");
     private string periodeprint = "Periode Bulan Lalu";
-    private bool isVisible;
-    private bool isBaris;
+    private bool isVisible = false;
+    private bool isBaris = false;
+    private bool flagmodal = true;
+
+    private void checkmodal()
+    {
+        if (trx._isVisible && !trx._isBaris)
+        {
+            isVisible = true;
+            isBaris = false;
+            StateHasChanged();
+        }
+        else if (trx._isBaris && !trx._isVisible)
+        {
+            isVisible = false;
+            isBaris = true;
+            StateHasChanged();
+        }
+        else
+        {
+            isVisible = false;
+            isBaris = false;
+            StateHasChanged();
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
         trx.setTransaksiHistori(periodeprint, startdate, enddate);
+        
     }
 
     private void testVisible()

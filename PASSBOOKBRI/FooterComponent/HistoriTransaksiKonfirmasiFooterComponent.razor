@@ -37,45 +37,6 @@
     <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#exampleModalCenter" @onclick="CheckVisible">Cetak</button>
 </div>
 
-@if (isVisible)
-{
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status" style="padding:0.5rem; margin-top: 5%;">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                    <div style="text-align: center; color: white;">
-                        <h3 class="teks" style="margin-top: 5%;">Mohon Tunggu,</h3>
-                        <h3>Histori Transaksi sedang dicetak...</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-@if (isBaris)
-{
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div style="text-align: center; color: white;">
-                        <h3>Anda memiliki sisa @trx._sisatransaksi histori transaksi lagi.</h3>
-                        <h3 class="teks" style="margin-top: 5%;">Apakah anda ingin mencetak histori transaksi berikutnya?</h3>
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#exampleModalCenter" @onclick="testVisible">Ya</button>
-                        <button type="button" class="btn btn-primary" style="background-color: #4E4E4E;" @onclick="home">Tidak</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
 @code {
     [Parameter]
     public EventCallback<string> OnClick { get; set; }
@@ -91,6 +52,7 @@
     private int sisatransaksi = 0;
     private int timer = 60000;
     private bool flag = false;
+    private bool flagmodal;
 
     public void historitransaksi()
     {
@@ -203,13 +165,12 @@
                         await Task.Delay(8000);
                     }
                     isVisible = false;
-                    trx.setModalVisible(isVisible);
 
                     if (maxhalaman >= 1)
                     {
                         isBaris = true;
-                        trx.setModalBaris(isBaris);
-                        StateHasChanged();
+                        flagmodal = false;
+                        trx.setModal(isBaris, isVisible);
                         do
                         {
                             await Task.Delay(100);
@@ -228,15 +189,5 @@
             }
         }
 
-    }
-    private void testVisible()
-    {
-        trx._isVisible = true;
-        trx._isBaris = false;
-    }
-
-    private void home()
-    {
-        OnClick.InvokeAsync("default");
     }
 }

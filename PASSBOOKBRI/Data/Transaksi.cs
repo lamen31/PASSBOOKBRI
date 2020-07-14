@@ -106,7 +106,7 @@ namespace PASSBOOKBRI.Data
         {
             _maxhalaman = strmaxhalaman;
         }
-        public void setFlagTimer(bool bolflag)
+        public void setFlag(bool bolflag)
         {
             _flag = bolflag;
         }
@@ -119,7 +119,6 @@ namespace PASSBOOKBRI.Data
         }
         public void clear()
         {
-            _pathA4 = string.Empty;
             _namacabang = string.Empty;
             _rekening = string.Empty;
             _nasabah = string.Empty;
